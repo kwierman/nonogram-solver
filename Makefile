@@ -41,14 +41,14 @@ formatting: codestyle
 #* Linting
 .PHONY: test
 test:
-	PYTHONPATH=$(PYTHONPATH) poetry run pytest -c pyproject.toml --cov-report=html --cov=crop_tracking tests/
+	PYTHONPATH=$(PYTHONPATH) poetry run pytest -c pyproject.toml --cov-report=html --cov=nonogram_solver tests/
 	poetry run coverage-badge -o assets/images/coverage.svg -f
 
 .PHONY: check-codestyle
 check-codestyle:
 	poetry run isort --diff --check-only --settings-path pyproject.toml ./
 	poetry run black --diff --check --config pyproject.toml ./
-	poetry run darglint --verbosity 2 crop_tracking tests
+	poetry run darglint --verbosity 2 nonogram_solver tests
 
 .PHONY: mypy
 mypy:
@@ -57,7 +57,7 @@ mypy:
 .PHONY: check-safety
 check-safety:
 	poetry check
-	poetry run bandit -ll --recursive crop_tracking tests
+	poetry run bandit -ll --recursive nonogram_solver tests
 
 .PHONY: lint
 lint: test check-codestyle mypy check-safety
